@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head></h:head>
+<body>
+
+	<h1>Cadastro de Clientes</h1>
+	<h:form id="frmCliente">
+ 	Nome: <h:inputText value="#{clienteController.cliente.nome}" />
+ 	E-Mail: <h:inputText value="#{clienteController.cliente.email}" />
+		<h:commandButton action="#{clienteController.salvar}" value="Salvar">
+			<f:ajax execute="frmCliente" render="dtCliente"></f:ajax>
+		</h:commandButton>
+
+		<h:dataTable value="#{clienteController.clientes}" var="c" border="1" id="dtCliente">
+			<h:column>
+				<f:facet name="header">ID</f:facet>
+				Código #{c.id} 
+			</h:column>
+			<h:column>
+			<f:facet name="header">NOME</f:facet>
+				Nome #{c.nome}
+			</h:column>
+			<h:column>
+			<f:facet name="header">EMAIL</f:facet>
+				Email #{c.email}
+			</h:column>
+			<h:column>
+				<h:commandButton action="#{clienteController.delete(c)}" value="Exluir" onclick="return confirm('Certeza que deseja exluír o registro?')">
+				<f:ajax render="frmCliente:dtCliente"/>
+				</h:commandButton>
+			</h:column>
+			</h:dataTable>
+	</h:form>
+</body>
+</html>
